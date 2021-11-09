@@ -1,0 +1,28 @@
+{
+  "name": "mycli",
+  "version": "1.0.0",
+  "description": "cli demo",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/luodan2015/cli.git"
+  },
+  "keywords": [
+    "cli"
+  ],
+  "bin": {
+    "mycli": "./index.js"
+  },
+  "author": "luodan",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/luodan2015/cli/issues"
+  },
+  "homepage": "https://github.com/luodan2015/cli#readme",
+  "dependencies": {
+    "commander": "^8.3.0"
+  }
+}
