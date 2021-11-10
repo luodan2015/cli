@@ -1,8 +1,6 @@
 #!/usr/bin/env node
 // 这里表明 index.js 是 node 可执行文件
 
-// console.log('执行成功');
-
 const fs = require('fs');
 const { program } = require('commander');
 const inquirer = require('inquirer');
@@ -69,6 +67,21 @@ program
     if (res.template === 'vueTemplate') {
       fs.writeFile(`./${filename}.vue`, target.src(), callback);
     }
+  });
+
+/**
+ * 创建文件夹命令行
+ */
+program
+  .command('create-f <folder>')
+  .description('创建一个文件夹')
+  .action((folder) => {
+    if (fs.existsSync(folder)) {
+      console.log('该文件夹已存在！');
+      return;
+    }
+    fs.mkdirSync(folder);
+    console.log('文件夹创建成功！');
   });
 
 program.parse(process.argv);
