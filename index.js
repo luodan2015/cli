@@ -3,7 +3,21 @@
 
 // console.log('执行成功');
 
+const fs = require('fs');
 const { program } = require('commander');
+const inquirer = require('inquirer');
+
+const templates = require('./templates/index');
+
+let prompList = [
+  {
+    type: 'list',
+    name: 'template',
+    message: '请选择你想要生成的模板？',
+    choices: templates,
+    default: templates[0],
+  },
+];
 
 const str2Arr = (str) => str.split(',');
 
@@ -32,10 +46,29 @@ program
 /**
  * 创建子命令
  * command('create <filename>') 就是创建了一个 mycli 的 create 子命令，后面跟了一个必填参数
+ * 利用命令行创建项目文件
+ * 简单的设计一个流程：输入命令 -> 选择模板 -> 调取模板 -> 创建问价
  */
 program
   .command('create <filename>')
   .description('创建一个文件')
-  .action((filename) => console.log(filename));
+  .action(async (filename) => {
+    const res = await inquirer.prompt(prompList);
+    console.log(res);
+    const target = templates.find((item) => item.name === res.template);
+    const callback = (err) => {
+      if (err) {
+        console.log('创建失败：', err);
+        return;
+      }
+      console.log('文件创建成功！');
+    };
+    if (res.template === 'reactClass') {
+      fs.writeFile(`./${filename}.jsx`, target.src(filename), callback);
+    }
+    if (res.template === 'vueTemplate') {
+      fs.writeFile(`./${filename}.vue`, target.src(), callback);
+    }
+  });
 
 program.parse(process.argv);
