@@ -93,36 +93,38 @@ program
   .command('create-taro <type> <fileName> <className> <title>')
   .description('创建taro组件/页面文件夹和文件')
   .action((type, fileName, className, title) => {
-    console.log('组件类型 type: ', type);
-    console.log('目录名 fileName: ', fileName);
-    console.log('类名 className: ', className);
-    console.log('标题 title: ', title);
+    // console.log('组件类型 type: ', type);
+    // console.log('目录名 fileName: ', fileName);
+    // console.log('类名 className: ', className);
+    // console.log('标题 title: ', title);
     let basePath = './src/pages/';
     if (['c', 'component'].includes(type)) {
       basePath = './src/components/';
     }
     const folder = `${basePath}${fileName}`;
     if (fs.existsSync(folder)) {
-      console.log(chalk.red('该文件夹已经存在，创建失败!'));
+      console.log(chalk.red(`${folder} 文件夹已经存在，创建失败!`));
       return;
     }
-    const callback = (err) => {
+    const callback = (name) => (err) => {
       if (err) {
-        console.log('err: ', err);
+        console.log(chalk.red(`${name} 创建失败，err: ${err}`));
+        return;
       }
+      console.log(chalk.green(`${name} 创建成功！`));
     };
     fs.mkdirSync(folder);
     fs.writeFile(
       `${folder}/index.tsx`,
       taroTemplates.main(className),
-      callback
+      callback(`${folder}/index.tsx`)
     );
-    fs.writeFile(`${folder}/index.scss`, '', callback);
+    fs.writeFile(`${folder}/index.scss`, '', callback(`${folder}/index.scss`));
     if (['p', 'page'].includes(type)) {
       fs.writeFile(
         `${folder}/index.config.ts`,
         taroTemplates.config(title),
-        callback
+        callback(`${folder}/index.config.ts`)
       );
     }
   });
