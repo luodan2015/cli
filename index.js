@@ -4,8 +4,10 @@
 const fs = require('fs');
 const { program } = require('commander');
 const inquirer = require('inquirer');
+const chalk = require('chalk');
 
 const templates = require('./templates/index');
+const taroTemplates = require('./templates/taro/index');
 
 let prompList = [
   {
@@ -56,10 +58,10 @@ program
     const target = templates.find((item) => item.name === res.template);
     const callback = (err) => {
       if (err) {
-        console.log('创建失败：', err);
+        console.log(chalk.red(`创建失败：${err}`));
         return;
       }
-      console.log('文件创建成功！');
+      console.log(chalk.green('文件创建成功！'));
     };
     if (res.template === 'reactClass') {
       fs.writeFile(`./${filename}.jsx`, target.src(filename), callback);
@@ -77,11 +79,52 @@ program
   .description('创建一个文件夹')
   .action((folder) => {
     if (fs.existsSync(folder)) {
-      console.log('该文件夹已存在！');
+      console.log(chalk.red('该文件夹已存在！'));
       return;
     }
     fs.mkdirSync(folder);
-    console.log('文件夹创建成功！');
+    console.log(chalk.green('文件夹创建成功！'));
+  });
+
+/**
+ * 创建taro文件
+ */
+program
+  .command('create-taro <type> <fileName> <className> <title>')
+  .description('创建taro组件/页面文件夹和文件')
+  .action((type, fileName, className, title) => {
+    console.log('组件类型 type: ', type);
+    console.log('目录名 fileName: ', fileName);
+    console.log('类名 className: ', className);
+    console.log('标题 title: ', title);
+    let basePath = './src/pages/';
+    if (['c', 'component'].includes(type)) {
+      basePath = './src/components/';
+    }
+    const folder = `${basePath}${fileName}`;
+    if (fs.existsSync(folder)) {
+      console.log(chalk.red('该文件夹已经存在，创建失败!'));
+      return;
+    }
+    const callback = (err) => {
+      if (err) {
+        console.log('err: ', err);
+      }
+    };
+    fs.mkdirSync(folder);
+    fs.writeFile(
+      `${folder}/index.tsx`,
+      taroTemplates.main(className),
+      callback
+    );
+    fs.writeFile(`${folder}/index.scss`, '', callback);
+    if (['p', 'page'].includes(type)) {
+      fs.writeFile(
+        `${folder}/index.config.ts`,
+        taroTemplates.config(title),
+        callback
+      );
+    }
   });
 
 program.parse(process.argv);
