@@ -90,18 +90,18 @@ program
  * 创建taro文件
  */
 program
-  .command('create-taro <type> <fileName> <className> <title>')
+  .command('create-taro <type> <folderName> <className> <title>')
   .description('创建taro组件/页面文件夹和文件')
-  .action((type, fileName, className, title) => {
+  .action((type, folderName, className, title) => {
     // console.log('组件类型 type: ', type);
-    // console.log('目录名 fileName: ', fileName);
+    // console.log('目录名 folderName: ', folderName);
     // console.log('类名 className: ', className);
     // console.log('标题 title: ', title);
     let basePath = './src/pages/';
     if (['c', 'component'].includes(type)) {
       basePath = './src/components/';
     }
-    const folder = `${basePath}${fileName}`;
+    const folder = `${basePath}${folderName}`;
     if (fs.existsSync(folder)) {
       console.log(chalk.red(`${folder} 文件夹已经存在，创建失败!`));
       return;
