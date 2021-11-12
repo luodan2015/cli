@@ -1,4 +1,30 @@
 # cli
 cli
 
-参考：https://segmentfault.com/a/1190000039110450
+使用示例：
+![cli](https://s3.bmp.ovh/imgs/2021/11/8e015dfe6ef8666d.png)
+
+
+index.config.ts 代码如下：
+```js
+export default {
+  navigationBarTitleText: '测试',
+};
+```
+
+index.tsx 代码如下：
+```js
+import React from 'react';
+import { View } from '@tarojs/components';
+import './index.scss';
+
+interface NewPageProps {}
+
+export default (props: NewPageProps) => {
+  return (
+    <View>
+      NewPage
+    </View>
+  );
+};
+```
