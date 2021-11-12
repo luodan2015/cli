@@ -97,6 +97,7 @@ program
     // console.log('目录名 folderName: ', folderName);
     // console.log('类名 className: ', className);
     // console.log('标题 title: ', title);
+    
     let basePath = './src/pages/';
     if (['c', 'component'].includes(type)) {
       basePath = './src/components/';
