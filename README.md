@@ -1,5 +1,6 @@
 # cli
-cli
+
+![cli](https://s3.bmp.ovh/imgs/2021/11/b6193eaef94a4a61.jpg)
 
 使用示例：
 ![cli](https://s3.bmp.ovh/imgs/2021/11/8e015dfe6ef8666d.png)
