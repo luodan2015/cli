@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 // 这里表明 index.js 是 node 可执行文件
 
-const fs = require('fs');
+const fs = require('fs-extra');
 const { program } = require('commander');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
@@ -114,7 +114,7 @@ program
       }
       console.log(chalk.green(`${name} 创建成功！`));
     };
-    fs.mkdirSync(folder);
+    fs.mkdirsSync(folder);
     fs.writeFile(
       `${folder}/index.tsx`,
       taroTemplates.main(className),
