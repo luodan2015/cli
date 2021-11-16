@@ -1,6 +1,6 @@
 {
-  "name": "mycli",
-  "version": "1.0.0",
+  "name": "luodan-cli",
+  "version": "1.0.1",
   "description": "cli demo",
   "main": "index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "cli"
   ],
   "bin": {
-    "mycli": "./index.js"
+    "mycli": "./bin/index.js"
   },
   "author": "luodan",
   "license": "ISC",

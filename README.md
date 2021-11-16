@@ -1,31 +1,23 @@
 # cli
 
-![cli](https://s3.bmp.ovh/imgs/2021/11/b6193eaef94a4a61.jpg)
-
-使用示例：
-![cli](https://s3.bmp.ovh/imgs/2021/11/8e015dfe6ef8666d.png)
-
-
-index.config.ts 代码如下：
+### 全局安装
 ```js
-export default {
-  navigationBarTitleText: '测试',
-};
+npm i -g luodan-cli
 ```
 
-index.tsx 代码如下：
+### 查看相关功能和参数
 ```js
-import React from 'react';
-import { View } from '@tarojs/components';
-import './index.scss';
+mycli -h
+mycli create-taro -h
+```
+### 使用示例：
 
-interface NewPageProps {}
+创建一个taro页面组件
+```js
+mycli create-taro new-page -cn NewPage -ti 新页面标题
+```
 
-export default (props: NewPageProps) => {
-  return (
-    <View>
-      NewPage
-    </View>
-  );
-};
+创建一个taro公共组件
+```js
+mycli create-taro -t c new-component -cn NewComponent
 ```

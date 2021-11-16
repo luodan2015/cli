@@ -6,8 +6,8 @@ const { program } = require('commander');
 const inquirer = require('inquirer');
 const chalk = require('chalk');
 
-const templates = require('./templates/index');
-const taroTemplates = require('./templates/taro/index');
+const templates = require('../templates/index');
+const taroTemplates = require('../templates/taro/index');
 
 let prompList = [
   {
@@ -23,7 +23,7 @@ const str2Arr = (str) => str.split(',');
 
 // cli版本
 program.version(
-  require('./package.json').version,
+  require('../package.json').version,
   '-v, --version',
   'cli的最新版本'
 );
