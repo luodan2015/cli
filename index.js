@@ -90,16 +90,31 @@ program
  * 创建taro文件
  */
 program
-  .command('create-taro <type> <folderName> <className> <title>')
+  .command('create-taro <folderName>')
   .description('创建taro组件/页面文件夹和文件')
-  .action((type, folderName, className, title) => {
-    // console.log('组件类型 type: ', type);
-    // console.log('目录名 folderName: ', folderName);
-    // console.log('类名 className: ', className);
-    // console.log('标题 title: ', title);
-    
+  .option(
+    '-t, --type <value>',
+    '组件类型：页面组件（p / page）/ 公共组件（c / component）',
+    'page'
+  )
+  .option('-cn, --className <value>', '组件类名, 默认值为<folderName>')
+  .option('-ti, --title <value>', '页面组件标题', '标题')
+  .action((folderName, options) => {
+    // console.log('folderName: ', folderName);
+    // console.log('options: ', options);
+    const { type, className = folderName, title } = options;
+    const isComponentType = ['c', 'component'].includes(type);
+
+    console.log(
+      '组件类型 type: ',
+      type.replace(/^c$/, 'component').replace(/^p$/, 'page')
+    );
+    console.log('目录名 folderName: ', folderName);
+    console.log('类名 className: ', className);
+    !isComponentType && console.log('标题 title: ', title);
+
     let basePath = './src/pages/';
-    if (['c', 'component'].includes(type)) {
+    if (isComponentType) {
       basePath = './src/components/';
     }
     const folder = `${basePath}${folderName}`;
